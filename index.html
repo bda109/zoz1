@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>إلى زهراء 🌹</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap');
+
+  :root{
+    --velvet-900:#230a10;
+    --velvet-800:#33111a;
+    --velvet-700:#4a1723;
+    --rose-gold:#c9976f;
+    --rose-gold-light:#e8c9a3;
+    --rose-gold-deep:#a8714f;
+    --champagne:#f5e6d3;
+    --blush:#e8a7b0;
+    --emerald:#4a7a56;
+    --emerald-deep:#2a4a33;
+    --diamond:#fdfaf4;
+    --gold-glow:#d9a566;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:linear-gradient(180deg,var(--velvet-900),var(--velvet-800) 40%,var(--velvet-700) 100%);
+    color:var(--champagne);
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.55) 100%);
+    pointer-events:none;
+    z-index:2;
+  }
+
+  section{
+    min-height:100svh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:6vh 6vw;
+    text-align:center;
+  }
+
+  .scene{position:relative; z-index:3;}
+
+  /* ---------- ambient particle layers ---------- */
+  .petals-layer, .dust-layer{
+    position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:1;
+  }
+  .petal{
+    position:absolute; top:-5%;
+    border-radius:0 60% 0 60%;
+    background:linear-gradient(135deg, var(--blush), var(--rose-gold));
+    opacity:.75;
+    animation:petalFall linear infinite;
+    will-change:transform;
+  }
+  @keyframes petalFall{
+    0%{transform:translate(0,0) rotate(0deg);}
+    100%{transform:translate(var(--drift),115vh) rotate(320deg);}
+  }
+  .dust{
+    position:absolute;
+    width:3px;height:3px;border-radius:50%;
+    background:var(--gold-glow);
+    box-shadow:0 0 6px 1px var(--gold-glow);
+    animation:dustTwinkle ease-in-out infinite;
+  }
+  @keyframes dustTwinkle{
+    0%,100%{opacity:.15; transform:scale(1);}
+    50%{opacity:.9; transform:scale(1.6);}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{gap:1.1rem;}
+  .eyebrow{
+    font-size:.95rem; letter-spacing:.12em; color:var(--rose-gold-light);
+    opacity:.9;
+  }
+  .name-title{
+    font-family:'Aref Ruqaa', serif;
+    font-weight:700;
+    font-size:clamp(3.6rem, 15vw, 7.5rem);
+    background:linear-gradient(180deg, var(--champagne), var(--rose-gold-light) 60%, var(--gold-glow));
+    -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 26px rgba(217,165,102,.35));
+    animation:glowBreathe 4.5s ease-in-out infinite;
+    line-height:1.1;
+  }
+  @keyframes glowBreathe{
+    0%,100%{filter:drop-shadow(0 0 20px rgba(217,165,102,.25));}
+    50%{filter:drop-shadow(0 0 38px rgba(217,165,102,.55));}
+  }
+  .hero-text{
+    max-width:32rem; font-size:clamp(1rem,2.6vw,1.2rem); line-height:2;
+    color:var(--champagne); opacity:.92;
+  }
+  .scroll-cue{
+    margin-top:2.2rem;
+    background:none; border:1.5px solid var(--rose-gold-light);
+    color:var(--rose-gold-light);
+    width:46px; height:46px; border-radius:50%;
+    font-size:1.2rem; cursor:pointer;
+    animation:bounceCue 2.2s ease-in-out infinite;
+    transition:background .3s, color .3s;
+  }
+  .scroll-cue:hover, .scroll-cue:focus-visible{background:var(--rose-gold-light); color:var(--velvet-900);}
+  @keyframes bounceCue{0%,100%{transform:translateY(0);}50%{transform:translateY(9px);}}
+
+  /* ---------- garden ---------- */
+  .garden{overflow:hidden;}
+  .garden-bg{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:.9;
+  }
+  .bloom{
+    transform-box:fill-box;
+    transform-origin:center;
+    transform:scale(0); opacity:0;
+  }
+  .garden.visible .bloom{
+    animation:bloomIn .9s cubic-bezier(.34,1.56,.64,1) forwards;
+    animation-delay:var(--delay,0s);
+  }
+  @keyframes bloomIn{
+    0%{transform:scale(0) rotate(-15deg); opacity:0;}
+    70%{opacity:1;}
+    100%{transform:scale(var(--s,1)) rotate(0deg); opacity:1;}
+  }
+  .garden-copy{
+    position:relative; z-index:2;
+    display:flex; flex-direction:column; gap:2.4rem;
+    max-width:34rem;
+  }
+  .line{
+    font-size:clamp(1.05rem,3vw,1.35rem); line-height:1.9;
+    opacity:0; transform:translateY(24px);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .garden.visible .line-1{transition-delay:.1s;}
+  .garden.visible .line-2{transition-delay:.35s;}
+  .garden.visible .line-3{transition-delay:.6s;}
+  .garden.visible .line{opacity:1; transform:translateY(0);}
+
+  /* ---------- ring stage ---------- */
+  .ring-stage{gap:1.6rem;}
+  .ring-instruction{
+    font-size:clamp(1.15rem,3.4vw,1.5rem);
+    color:var(--champagne);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .ring-instruction.faded{opacity:0; transform:translateY(-10px);}
+  .ring-sub{font-size:.9rem; color:var(--rose-gold-light); opacity:.85; margin-top:-.8rem;}
+  .ring-sub.faded{opacity:0; transition:opacity .6s ease;}
+
+  .hand-wrap{
+    position:relative;
+    width:min(88vw,380px);
+    aspect-ratio:1/1;
+    margin:0 auto;
+  }
+  .hand-wrap svg{
+    width:100%; height:100%; display:block;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,.5)) drop-shadow(0 0 34px rgba(201,151,111,.28));
+  }
+
+  /* Presenting Hand Animation */
+  #presentingHand{
+    transform-origin:100px 400px;
+    transition:transform 1.2s cubic-bezier(.34,1.56,.64,1);
+  }
+  #presentingHand.offered{
+    transform:translate(110px, -110px) rotate(-8deg);
+  }
+
+  .twinkle{transform-box:fill-box; transform-origin:center; animation:twinkleStar 1.8s ease-in-out infinite;}
+  @keyframes twinkleStar{
+    0%,100%{opacity:.25; transform:scale(.7);}
+    50%{opacity:1; transform:scale(1.15);}
+  }
+
+  .tap-target{
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    width:100px; height:100px; border-radius:50%;
+    background:transparent; border:none; cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .tap-target:focus-visible{outline:2px solid var(--champagne); outline-offset:4px;}
+  body.ring-worn .tap-target{pointer-events:none;}
+
+  .scene-flash{
+    position:fixed; inset:0; z-index:5; pointer-events:none;
+    background:radial-gradient(circle at 50% 55%, rgba(217,165,102,.55), transparent 60%);
+    opacity:0;
+  }
+  .scene-flash.flash{animation:flashPulse 1s ease-out;}
+  @keyframes flashPulse{0%{opacity:0;}30%{opacity:.75;}100%{opacity:0;}}
+
+  .success-msg{
+    font-family:'Aref Ruqaa', serif;
+    font-size:clamp(1.25rem,3.6vw,1.7rem);
+    color:var(--rose-gold-light);
+    opacity:0; transform:translateY(14px);
+    transition:opacity .9s ease, transform .9s ease;
+    min-height:2.4em;
+  }
+  .success-msg.visible{opacity:1; transform:translateY(0);}
+
+  .next-cue{
+    opacity:0; transition:opacity .8s ease;
+    font-size:.95rem; color:var(--rose-gold-light); text-decoration:none;
+    border:none; background:none; cursor:pointer; letter-spacing:.05em;
+  }
+  .next-cue.visible{opacity:.85;}
+
+  /* ---------- letter ---------- */
+  .letter-card{
+    max-width:36rem;
+    background:linear-gradient(160deg, rgba(74,23,35,.55), rgba(35,10,16,.7));
+    border:1px solid rgba(232,201,163,.25);
+    border-radius:18px;
+    padding:clamp(2rem,6vw,3.2rem);
+    backdrop-filter:blur(6px);
+    box-shadow:0 30px 60px rgba(0,0,0,.4);
+  }
+  .seal{
+    width:56px; height:56px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--rose-gold-light), var(--rose-gold-deep));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Aref Ruqaa', serif; font-size:1.6rem; color:var(--velvet-900);
+    margin:0 auto 1.4rem; box-shadow:0 6px 18px rgba(0,0,0,.4);
+  }
+  .letter-title{
+    font-family:'Aref Ruqaa', serif; font-size:clamp(1.8rem,5vw,2.6rem);
+    color:var(--champagne); margin-bottom:1.4rem;
+  }
+  .letter-card p{
+    font-size:clamp(1rem,2.6vw,1.15rem); line-height:2.1; color:var(--champagne); opacity:.94;
+    margin-bottom:1.2rem;
+  }
+  .signature{
+    font-family:'Aref Ruqaa', serif; font-size:1.2rem; color:var(--rose-gold-light);
+    margin-top:1.6rem;
+  }
+  .final-btn{
+    margin-top:2.4rem;
+    background:linear-gradient(135deg, var(--rose-gold-light), var(--rose-gold-deep));
+    color:var(--velvet-900); border:none; border-radius:999px;
+    padding:.9rem 2.4rem; font-family:'Tajawal',sans-serif; font-weight:700;
+    font-size:1.05rem; cursor:pointer;
+    box-shadow:0 12px 26px rgba(0,0,0,.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .final-btn:hover, .final-btn:focus-visible{transform:translateY(-3px) scale(1.03); box-shadow:0 16px 32px rgba(0,0,0,.45);}
+  .final-btn:active{transform:translateY(0) scale(.98);}
+
+  .heart-particle{
+    position:fixed; z-index:6; pointer-events:none;
+    font-size:1.3rem;
+    animation:heartBurst 1.6s ease-out forwards;
+  }
+  @keyframes heartBurst{
+    0%{opacity:1; transform:translate(0,0) scale(.6) rotate(0deg);}
+    100%{opacity:0; transform:translate(var(--hx),var(--hy)) scale(1.2) rotate(var(--hr));}
+  }
+
+  footer{
+    text-align:center; padding:3rem 1rem 4rem; font-size:.8rem; color:var(--rose-gold-light); opacity:.55;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:opacity .3s ease !important, transform .3s ease !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="petals-layer" id="petalsLayer"></div>
+<div class="dust-layer" id="dustLayer"></div>
+<div class="scene-flash" id="sceneFlash"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="flowerSym" viewBox="-50 -50 100 100">
+      <g>
+        <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="9" fill="var(--gold-glow)"/>
+      </g>
+    </symbol>
+    <symbol id="leafSym" viewBox="0 0 40 80">
+      <path d="M20 78 C -8 55, -4 15, 20 2 C 44 15, 48 55, 20 78 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="scene" id="scene">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <p class="eyebrow">إلى أغلى وأحب إنسانة لقلبي</p>
+    <h1 class="name-title">زهراء</h1>
+    <p class="hero-text">
+      أعتذر لكِ من أعمق نقطة في قلبي... المزاح بالكلمات الثقيلة كان خطأً كبيراً لم أقصده أبداً.<br>
+      مكانتكِ في قلبي أسمى وأرقى من أي مزاح زائل.<br>
+      اقبلي مني هذه اللفتة البسيطة، فقلبي يطلب منكِ السماح.
+    </p>
+    <button class="scroll-cue" id="scrollCue1" aria-label="استمري بالتمرير">↓</button>
+  </section>
+
+  <!-- GARDEN -->
+  <section class="garden" id="garden">
+    <svg class="garden-bg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+      <use href="#leafSym" x="60" y="620" width="70" height="140" fill="var(--emerald-deep)" class="bloom" style="--delay:.05s;--s:1"/>
+      <use href="#leafSym" x="640" y="120" width="90" height="180" fill="var(--emerald)" class="bloom" style="--delay:.2s;--s:1" transform-origin="685px 210px"/>
+      <use href="#flowerSym" x="90" y="140" width="120" height="120" fill="var(--blush)" class="bloom" style="--delay:.15s;--s:1"/>
+      <use href="#flowerSym" x="600" y="500" width="150" height="150" fill="var(--rose-gold-light)" class="bloom" style="--delay:.4s;--s:1"/>
+      <use href="#flowerSym" x="40" y="780" width="100" height="100" fill="var(--rose-gold)" class="bloom" style="--delay:.55s;--s:1"/>
+      <use href="#flowerSym" x="660" y="800" width="130" height="130" fill="var(--blush)" class="bloom" style="--delay:.3s;--s:1"/>
+      <use href="#flowerSym" x="330" y="60" width="90" height="90" fill="var(--rose-gold-light)" class="bloom" style="--delay:.6s;--s:1"/>
+      <use href="#leafSym" x="300" y="880" width="60" height="120" fill="var(--emerald-deep)" class="bloom" style="--delay:.45s;--s:1"/>
+    </svg>
+    <div class="garden-copy">
+      <p class="line line-1">ما بيننا أعمق وأكبر من كلمة قيلت بغير تفكير</p>
+      <p class="line line-2">أنتِ حياتي وبيتي وسلامي، ولا أتحمل لحظة زعل واحدة في عينيكِ</p>
+      <p class="line line-3">أضع يدي بيدكِ، مستسمحاً ومجدداً لعهدي معكِ</p>
+    </div>
+  </section>
+
+  <!-- RING STAGE -->
+  <section class="ring-stage" id="ringStage">
+    <p class="ring-instruction" id="ringInstruction">المسي الشاشة لتستلمي الخاتم يا زهراء 💍</p>
+    <p class="ring-sub" id="ringSub">يدي تُقدّم لكِ الخاتم اعتذاراً وحباً</p>
+
+    <div class="hand-wrap">
+      <svg id="handSvg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="handGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" style="stop-color:var(--rose-gold-light)"/>
+            <stop offset="55%" style="stop-color:var(--rose-gold)"/>
+            <stop offset="100%" style="stop-color:var(--rose-gold-deep)"/>
+          </linearGradient>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" style="stop-color:var(--rose-gold-light)"/>
+            <stop offset="100%" style="stop-color:var(--rose-gold-deep)"/>
+          </linearGradient>
+          <radialGradient id="diamondGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" style="stop-color:#ffffff"/>
+            <stop offset="55%" style="stop-color:var(--diamond)"/>
+            <stop offset="100%" style="stop-color:#bcd7e6"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Receiver Hand (Zahra's Hand receiving on right side) -->
+        <g id="zahraHand" transform="translate(180, 20)">
+          <rect x="277" y="65" width="30" height="150" rx="15" fill="url(#handGrad)" transform="rotate(12 295 225)"/>
+          <ellipse cx="255" cy="345" rx="80" ry="100" fill="url(#handGrad)"/>
+        </g>
+
+        <!-- Presenting Hand holding and offering the ring -->
+        <g id="presentingHand">
+          <!-- Forearm & Palm coming from bottom left -->
+          <path d="M 0 480 Q 100 380 180 320 Q 220 290 250 290 Q 260 320 220 370 Z" fill="url(#handGrad)"/>
+          <!-- Fingers gently holding the ring -->
+          <rect x="180" y="250" width="28" height="70" rx="14" fill="url(#handGrad)" transform="rotate(-35 180 250)"/>
+          <rect x="200" y="235" width="26" height="75" rx="13" fill="url(#handGrad)" transform="rotate(-20 200 235)"/>
+          <rect x="150" y="280" width="28" height="60" rx="14" fill="url(#handGrad)" transform="rotate(45 150 280)"/>
+
+          <!-- The Ring held in hand -->
+          <g transform="translate(235, 230)">
+            <circle r="26" fill="none" stroke="url(#ringGrad)" stroke-width="9"/>
+            <polygon points="0,-38 10,-24 0,-12 -10,-24" fill="url(#diamondGrad)" stroke="#ffffff" stroke-width="1.2"/>
+            <path class="twinkle" style="animation-delay:0s" d="M-22,-40 l2,5 l5,2 l-5,2 l-2,5 l-2,-5 l-5,-2 l5,-2 Z" fill="#ffffff"/>
+            <path class="twinkle" style="animation-delay:.7s" d="M20,-25 l2,5 l5,2 l-5,2 l-2,5 l-2,-5 l-5,-2 l5,-2 Z" fill="#ffffff"/>
+          </g>
+        </g>
+      </svg>
+
+      <button class="tap-target" id="tapTarget" aria-label="المسي هنا لاستلام الخاتم"></button>
+    </div>
+
+    <p class="success-msg" id="successMsg"></p>
+    <button class="next-cue" id="nextCue">رسالة من القلب ↓</button>
+  </section>
+
+  <!-- LETTER -->
+  <section class="letter" id="letterSection">
+    <div class="letter-card">
+      <div class="seal">ز</div>
+      <h2 class="letter-title">إلى زهراء الغالية</h2>
+      <p>يا زهراء...<br>
+      أعلم أن المزاح بأمر الطلاق أو المزاح الثقيل أمر غير مقبول ومؤلم، وأعتذر لكِ أشد الاعتذار. كان طيشاً وزلة لسان لم أكن أقصد بها سوى المداعبة الجاهلة، ولكنني تعلمت الدرس جيداً.</p>
+      <p>مكانتكِ عندي أعلى من أن يُعبث بها، وأغلى من كل شيء. أعدكِ ألا يتكرر مثل هذا القول أبداً، وأن أكون الحصن والسند والأمان لكِ دائماً.</p>
+      <p>أنتِ لستِ مجرد زوجة، أنتِ روحي وسلامي وأجمل نعم حياتي.</p>
+      <p class="signature">سامحيني بحق محبتنا 🌹</p>
+      <button class="final-btn" id="finalBtn">أحبك يا زهراء</button>
+    </div>
+    <footer>صُنعت لكِ خصيصاً مع كل الحب والإعتذار 🤍</footer>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- petals ---------- */
+  function makePetals(){
+    var layer = document.getElementById('petalsLayer');
+    var count = reduceMotion ? 6 : 20;
+    for(var i=0;i<count;i++){
+      var p = document.createElement('div');
+      p.className = 'petal';
+      var size = 8 + Math.random()*14;
+      var dur = reduceMotion ? (40+Math.random()*20) : (10+Math.random()*10);
+      var delay = -Math.random()*dur;
+      var drift = (Math.random()*140-70).toFixed(0)+'px';
+      p.style.left = (Math.random()*100)+'%';
+      p.style.width = size+'px';
+      p.style.height = size+'px';
+      p.style.setProperty('--drift', drift);
+      p.style.animationDuration = dur+'s';
+      p.style.animationDelay = delay+'s';
+      p.style.opacity = (0.4+Math.random()*0.4).toFixed(2);
+      layer.appendChild(p);
+    }
+  }
+
+  function makeDust(){
+    var layer = document.getElementById('dustLayer');
+    var count = reduceMotion ? 8 : 26;
+    for(var i=0;i<count;i++){
+      var d = document.createElement('div');
+      d.className = 'dust';
+      d.style.left = (Math.random()*100)+'%';
+      d.style.top = (Math.random()*100)+'%';
+      d.style.animationDuration = (2.5+Math.random()*3)+'s';
+      d.style.animationDelay = (Math.random()*4)+'s';
+      layer.appendChild(d);
+    }
+  }
+
+  makePetals();
+  makeDust();
+
+  /* ---------- scroll reveal ---------- */
+  var garden = document.getElementById('garden');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          garden.classList.add('visible');
+        }
+      });
+    }, {threshold:0.35});
+    obs.observe(garden);
+  } else {
+    garden.classList.add('visible');
+  }
+
+  /* ---------- scroll cues ---------- */
+  document.getElementById('scrollCue1').addEventListener('click', function(){
+    document.getElementById('garden').scrollIntoView({behavior: reduceMotion?'auto':'smooth'});
+  });
+  document.getElementById('nextCue').addEventListener('click', function(){
+    document.getElementById('letterSection').scrollIntoView({behavior: reduceMotion?'auto':'smooth'});
+  });
+
+  /* ---------- ring interaction ---------- */
+  var tapTarget = document.getElementById('tapTarget');
+  var presentingHand = document.getElementById('presentingHand');
+  var instruction = document.getElementById('ringInstruction');
+  var ringSub = document.getElementById('ringSub');
+  var sceneFlash = document.getElementById('sceneFlash');
+  var successMsg = document.getElementById('successMsg');
+  var nextCue = document.getElementById('nextCue');
+
+  function offerRing(){
+    if(document.body.classList.contains('ring-worn')) return;
+    document.body.classList.add('ring-worn');
+    presentingHand.classList.add('offered');
+    instruction.classList.add('faded');
+    ringSub.classList.add('faded');
+
+    setTimeout(function(){
+      sceneFlash.classList.add('flash');
+      successMsg.textContent = 'الخاتم والقلب وصاحبهما لكِ وحدكِ يا زهراء 💍❤️';
+      successMsg.classList.add('visible');
+      setTimeout(function(){ nextCue.classList.add('visible'); }, 1300);
+    }, reduceMotion ? 100 : 1150);
+  }
+
+  tapTarget.addEventListener('click', offerRing);
+  tapTarget.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      offerRing();
+    }
+  });
+
+  /* ---------- final button ---------- */
+  var phrases = [
+    'أحبك يا زهراء 🌹',
+    'سامحيني يا كل دنيتي 🤍',
+    'أنتِ زهرتي وأماني 🌸',
+    'وعدٌ مني ألا تتكرر 💛',
+    'دمتِ لي حباً للأبد 🌙'
+  ];
+  var phraseIndex = 0;
+  var finalBtn = document.getElementById('finalBtn');
+
+  function burstHearts(btn){
+    var rect = btn.getBoundingClientRect();
+    var cx = rect.left + rect.width/2;
+    var cy = rect.top + rect.height/2;
+    var icons = ['🌹','💛','🌸','✨'];
+    var n = reduceMotion ? 4 : 10;
+    for(var i=0;i<n;i++){
+      var h = document.createElement('div');
+      h.className = 'heart-particle';
+      h.textContent = icons[Math.floor(Math.random()*icons.length)];
+      var angle = Math.random()*Math.PI*2;
+      var dist = 60+Math.random()*90;
+      h.style.left = cx+'px';
+      h.style.top = cy+'px';
+      h.style.setProperty('--hx', (Math.cos(angle)*dist)+'px');
+      h.style.setProperty('--hy', (Math.sin(angle)*dist - 40)+'px');
+      h.style.setProperty('--hr', (Math.random()*60-30)+'deg');
+      document.body.appendChild(h);
+      (function(el){ setTimeout(function(){ el.remove(); }, 1700); })(h);
+    }
+  }
+
+  finalBtn.addEventListener('click', function(){
+    phraseIndex = (phraseIndex+1) % phrases.length;
+    finalBtn.textContent = phrases[phraseIndex];
+    burstHearts(finalBtn);
+  });
+
+})();
+</script>
+</body>
+</html>
